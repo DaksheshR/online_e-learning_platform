@@ -1,13 +1,6 @@
 const express = require('express');
-const Joi = require('joi');
-const mongoose = require('mongoose');
 const router = express.Router();
-
-const categorySchema = new mongoose.Schema({
-    name: {type: String, required: true, minlength: 3, maxlength: 50}
-});
-
-const Category = mongoose.model('Category', categorySchema);
+const {Category, validateCategory} = require('../models/categoriesModel');
 
 router.get('/', async(req,res) => {
     const categories = await Category.find();
@@ -48,12 +41,5 @@ router.get('/:id', async(req,res) => {
     if(!category) return res.status(404).send('The category with the given ID was not found.');
     res.send(category);
 });
-
-function validateCategory(category) {
-    const schema = {
-        name: Joi.string().min(3).required()
-    };
-    return Joi.validate(category, schema);
-}
 
 module.exports = router;
