@@ -135,6 +135,17 @@ function renderStudents() {
   });
 }
 
+function renderDashboard() {
+  document.getElementById('dashboard-courses').textContent = state.courses.length;
+  document.getElementById('dashboard-categories').textContent = state.categories.length;
+  document.getElementById('dashboard-students').textContent = state.students.length;
+}
+
+function openTab(tabId) {
+  tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabId));
+  document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === tabId));
+}
+
 function clearForm(formId) {
   const form = document.getElementById(formId);
   form.reset();
@@ -303,6 +314,10 @@ function wireEvents() {
   document.getElementById('refresh-courses').addEventListener('click', async () => await loadCourses());
   document.getElementById('refresh-students').addEventListener('click', async () => await loadStudents());
 
+  document.querySelectorAll('.quick-action').forEach(button => {
+    button.addEventListener('click', () => openTab(button.dataset.tab));
+  });
+
   setupTableActions('categories-table', { edit: editCategory, delete: deleteCategory });
   setupTableActions('courses-table', { edit: editCourse, delete: deleteCourse });
   setupTableActions('students-table', { edit: editStudent, delete: deleteStudent });
@@ -311,6 +326,7 @@ function wireEvents() {
 async function init() {
   wireEvents();
   await Promise.all([loadCategories(), loadCourses(), loadStudents()]);
+  renderDashboard();
 }
 
 init();

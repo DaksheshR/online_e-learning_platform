@@ -16,14 +16,40 @@
 
     <main class="container">
         <nav class="tab-bar">
-            <button class="tab-button active" data-tab="courses">Courses</button>
+            <button class="tab-button active" data-tab="dashboard">Dashboard</button>
+            <button class="tab-button" data-tab="courses">Courses</button>
             <button class="tab-button" data-tab="categories">Categories</button>
             <button class="tab-button" data-tab="students">Students</button>
         </nav>
 
         <section id="message" class="message"></section>
 
-        <section class="tab-panel active" id="courses">
+        <section class="tab-panel active" id="dashboard">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <p class="stat-label">Courses</p>
+                    <p id="dashboard-courses" class="stat-value">0</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Categories</p>
+                    <p id="dashboard-categories" class="stat-value">0</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Students</p>
+                    <p id="dashboard-students" class="stat-value">0</p>
+                </div>
+            </div>
+            <div class="panel-card dashboard-actions">
+                <h2>Quick Actions</h2>
+                <div class="quick-actions">
+                    <button class="btn btn-primary quick-action" data-tab="courses">Manage Courses</button>
+                    <button class="btn btn-primary quick-action" data-tab="categories">Manage Categories</button>
+                    <button class="btn btn-primary quick-action" data-tab="students">Manage Students</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="tab-panel" id="courses">
             <div class="panel-grid">
                 <div class="panel-card">
                     <h2>Course Form</h2>
