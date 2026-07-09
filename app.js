@@ -4,6 +4,7 @@ const categories = require("./routes/categories");
 const students = require('./routes/students');
 const courses = require('./routes/courses');
 const app = express();
+app.use(express.static('public'));
 app.use(express.json());
 app.use('/api/category', categories);
 app.use('/api/students', students);
