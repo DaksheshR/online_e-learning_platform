@@ -31,8 +31,39 @@ A full-stack e-learning management app built with Express and React/Vite.
 
 Use the values from [.env.example](.env.example) to configure the app.
 
-## Production notes
+## Production deployment
 
+### 1) Backend on Render
+1. Push the project to GitHub.
+2. Create a new Web Service on Render.
+3. Connect the repository.
+4. Set the build command to:
+   - `npm install`
+5. Set the start command to:
+   - `npm start`
+6. Add environment variables:
+   - `NODE_ENV=production`
+   - `MONGO_URI=your_mongodb_atlas_connection_string`
+   - `AUTH_REQUIRED=false`
+
+### 2) Frontend on Vercel
+1. Create a new Vercel project.
+2. Import the repository.
+3. Set the root directory to `frontend`.
+4. Set the build command to:
+   - `npm run build`
+5. Set the output directory to:
+   - `dist`
+6. Add environment variable:
+   - `VITE_API_URL=https://your-render-app-url.onrender.com/api`
+
+### 3) MongoDB Atlas
+1. Create a free MongoDB Atlas cluster.
+2. Create a database user.
+3. Allow access from `0.0.0.0/0.0.0.0` for development, or restrict it later.
+4. Copy the connection string into `MONGO_URI`.
+
+### 4) Optional production hardening
 - API authentication can be enabled with `AUTH_REQUIRED=true` and `API_BEARER_TOKEN=...`
 - Request payloads should be validated before reaching controllers
 - Keep feature-specific modules under frontend/src/features for better scaling

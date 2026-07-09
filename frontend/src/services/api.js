@@ -1,4 +1,4 @@
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 export async function fetchJson(url, options) {
   const response = await fetch(url, options);
@@ -16,12 +16,17 @@ export async function fetchJson(url, options) {
   return body ? JSON.parse(body) : null;
 }
 
+function buildUrl(path) {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${API_BASE}${normalizedPath}`;
+}
+
 export async function getCategories() {
-  return fetchJson(`${API_BASE}/category`);
+  return fetchJson(buildUrl('/category'));
 }
 
 export async function createCategory(data) {
-  return fetchJson(`${API_BASE}/category`, {
+  return fetchJson(buildUrl('/category'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -29,7 +34,7 @@ export async function createCategory(data) {
 }
 
 export async function updateCategory(id, data) {
-  return fetchJson(`${API_BASE}/category/${id}`, {
+  return fetchJson(buildUrl(`/category/${id}`), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -37,15 +42,15 @@ export async function updateCategory(id, data) {
 }
 
 export async function deleteCategory(id) {
-  return fetchJson(`${API_BASE}/category/${id}`, { method: 'DELETE' });
+  return fetchJson(buildUrl(`/category/${id}`), { method: 'DELETE' });
 }
 
 export async function getCourses() {
-  return fetchJson(`${API_BASE}/courses`);
+  return fetchJson(buildUrl('/courses'));
 }
 
 export async function createCourse(data) {
-  return fetchJson(`${API_BASE}/courses`, {
+  return fetchJson(buildUrl('/courses'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -53,7 +58,7 @@ export async function createCourse(data) {
 }
 
 export async function updateCourse(id, data) {
-  return fetchJson(`${API_BASE}/courses/${id}`, {
+  return fetchJson(buildUrl(`/courses/${id}`), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -61,15 +66,15 @@ export async function updateCourse(id, data) {
 }
 
 export async function deleteCourse(id) {
-  return fetchJson(`${API_BASE}/courses/${id}`, { method: 'DELETE' });
+  return fetchJson(buildUrl(`/courses/${id}`), { method: 'DELETE' });
 }
 
 export async function getStudents() {
-  return fetchJson(`${API_BASE}/students`);
+  return fetchJson(buildUrl('/students'));
 }
 
 export async function createStudent(data) {
-  return fetchJson(`${API_BASE}/students`, {
+  return fetchJson(buildUrl('/students'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -77,7 +82,7 @@ export async function createStudent(data) {
 }
 
 export async function updateStudent(id, data) {
-  return fetchJson(`${API_BASE}/students/${id}`, {
+  return fetchJson(buildUrl(`/students/${id}`), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -85,5 +90,5 @@ export async function updateStudent(id, data) {
 }
 
 export async function deleteStudent(id) {
-  return fetchJson(`${API_BASE}/students/${id}`, { method: 'DELETE' });
+  return fetchJson(buildUrl(`/students/${id}`), { method: 'DELETE' });
 }
