@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories, getCourses, getStudents } from '../api/api';
+import { getCategories, getCourses, getStudents } from '../services/api';
 import StatCard from '../components/StatCard';
 
 export default function Dashboard() {

@@ -16,7 +16,6 @@ export async function fetchJson(url, options) {
   return body ? JSON.parse(body) : null;
 }
 
-// ── Categories ──────────────────────────────────────────
 export async function getCategories() {
   return fetchJson(`${API_BASE}/category`);
 }
@@ -41,7 +40,6 @@ export async function deleteCategory(id) {
   return fetchJson(`${API_BASE}/category/${id}`, { method: 'DELETE' });
 }
 
-// ── Courses ─────────────────────────────────────────────
 export async function getCourses() {
   return fetchJson(`${API_BASE}/courses`);
 }
@@ -66,7 +64,6 @@ export async function deleteCourse(id) {
   return fetchJson(`${API_BASE}/courses/${id}`, { method: 'DELETE' });
 }
 
-// ── Students ────────────────────────────────────────────
 export async function getStudents() {
   return fetchJson(`${API_BASE}/students`);
 }

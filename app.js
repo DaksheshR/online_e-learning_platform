@@ -1,32 +1,39 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
-const categories = require("./routes/categories");
-const students = require('./routes/students');
-const courses = require('./routes/courses');
+const { port } = require('./backend/config/env');
+const { connectDB, isDbConnected } = require('./backend/config/db');
+const errorHandler = require('./backend/middleware/errorHandler');
+const requireAuth = require('./backend/middleware/auth');
+const categories = require('./backend/routes/categories');
+const students = require('./backend/routes/students');
+const courses = require('./backend/routes/courses');
 
 const app = express();
 
-// Enable CORS for development (React dev server on different port)
 app.use(cors());
-
 app.use(express.json());
+app.use(requireAuth);
+
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api') && !isDbConnected()) {
+    return res.status(503).json({ message: 'Database unavailable. Start MongoDB to use the API.' });
+  }
+  next();
+});
+
 app.use('/api/category', categories);
 app.use('/api/students', students);
 app.use('/api/courses', courses);
 
-// Serve React production build
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-// SPA fallback: serve index.html for all non-API routes
 app.get(/^\/(?!api).*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
-mongoose.connect('mongodb://localhost:27017/learningPlatform')
-.then(() => console.log('Connected to MongoDB...'))
-.catch(err => console.error('Could not connect to MongoDB...', err));
+app.use(errorHandler);
 
-const port = process.env.PORT || 3000;
+connectDB();
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useToast } from '../components/Layout';
 import FormCard from '../components/FormCard';
 import DataTable from '../components/DataTable';
-import { getStudents, createStudent, updateStudent, deleteStudent as apiDeleteStudent } from '../api/api';
+import { getStudents, createStudent, updateStudent, deleteStudent as apiDeleteStudent } from '../services/api';
 
 const emptyForm = { name: '', phone: '', isEnrolled: false };
 

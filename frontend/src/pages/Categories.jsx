@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useToast } from '../components/Layout';
 import FormCard from '../components/FormCard';
 import DataTable from '../components/DataTable';
-import { getCategories, createCategory, updateCategory, deleteCategory as apiDeleteCategory } from '../api/api';
+import { getCategories, createCategory, updateCategory, deleteCategory as apiDeleteCategory } from '../services/api';
 
 const emptyForm = { name: '' };
 

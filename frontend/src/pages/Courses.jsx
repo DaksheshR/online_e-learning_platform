@@ -8,7 +8,7 @@ import {
   createCourse,
   updateCourse,
   deleteCourse as apiDeleteCourse,
-} from '../api/api';
+} from '../services/api';
 
 const emptyForm = { title: '', creator: '', categoryId: '', rating: '' };
 
