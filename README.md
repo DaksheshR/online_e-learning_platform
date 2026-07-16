@@ -34,13 +34,14 @@ Use the values from [.env.example](.env.example) to configure the app.
 ## Production deployment
 
 ### 1) Backend on Render
+This repository includes a ready-to-use [`render.yaml`](./render.yaml) blueprint.
+
 1. Push the project to GitHub.
 2. Create a new Web Service on Render.
 3. Connect the repository.
-4. Set the build command to:
-   - `npm install`
-5. Set the start command to:
-   - `npm start`
+4. Render will auto-detect `render.yaml` and set:
+   - Build command: `npm ci`
+   - Start command: `npm start`
 6. Add environment variables:
    - `NODE_ENV=production`
    - `MONGO_URI=your_mongodb_atlas_connection_string`
@@ -50,12 +51,15 @@ Use the values from [.env.example](.env.example) to configure the app.
 1. Create a new Vercel project.
 2. Import the repository.
 3. Set the root directory to `frontend`.
-4. Set the build command to:
+4. Set the install command to:
+   - `npm install`
+5. Set the build command to:
    - `npm run build`
-5. Set the output directory to:
+6. Set the output directory to:
    - `dist`
-6. Add environment variable:
+7. Add environment variable:
    - `VITE_API_URL=https://your-render-app-url.onrender.com/api`
+8. The SPA route fallback is already configured in [`frontend/vercel.json`](./frontend/vercel.json).
 
 ### 3) MongoDB Atlas
 1. Create a free MongoDB Atlas cluster.

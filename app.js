@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const { port } = require('./backend/config/env');
@@ -34,11 +35,16 @@ app.use('/api/category', categories);
 app.use('/api/students', students);
 app.use('/api/courses', courses);
 
-app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+const frontendDistPath = path.join(__dirname, 'frontend', 'dist');
+const hasFrontendBuild = fs.existsSync(path.join(frontendDistPath, 'index.html'));
 
-app.get(/^\/(?!api).*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
-});
+if (hasFrontendBuild) {
+  app.use(express.static(frontendDistPath));
+
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
+  });
+}
 
 app.use(errorHandler);
 
