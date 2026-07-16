@@ -36,12 +36,11 @@ Use the values from [.env.example](.env.example) to configure the app.
 ### 1) Backend on Render
 1. Push the project to GitHub.
 2. Create a new Web Service on Render.
-3. Connect the repository.
-4. Set the build command to:
-   - `npm install`
-5. Set the start command to:
-   - `npm start`
-6. Add environment variables:
+3. Connect the repository and use the included `render.yaml` blueprint.
+4. The service uses:
+   - Build command: `npm ci && npm run build:client`
+   - Start command: `npm start`
+5. Add environment variables:
    - `NODE_ENV=production`
    - `MONGO_URI=your_mongodb_atlas_connection_string`
    - `AUTH_REQUIRED=false`
@@ -50,11 +49,8 @@ Use the values from [.env.example](.env.example) to configure the app.
 1. Create a new Vercel project.
 2. Import the repository.
 3. Set the root directory to `frontend`.
-4. Set the build command to:
-   - `npm run build`
-5. Set the output directory to:
-   - `dist`
-6. Add environment variable:
+4. The frontend already includes `frontend/vercel.json` for SPA route rewrites.
+5. Set the environment variable:
    - `VITE_API_URL=https://your-render-app-url.onrender.com/api`
 
 ### 3) MongoDB Atlas
