@@ -42,7 +42,7 @@ if (hasFrontendBuild) {
   app.use(express.static(frontendDistPath));
 
   app.get(/^\/(?!api).*/, (req, res) => {
-    res.sendFile(path.join(frontendDistPath, 'index.html'));
+    res.redirect('/');
   });
 }
 
